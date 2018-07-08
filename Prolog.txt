@@ -1,0 +1,32 @@
+parent(john, ann). /*the fact that John is a parent of Ann*/
+parent(john, mike). %the fact that John is a parent of Mike
+parent(mary, mike).
+parent(mike, pat).
+parent(mary, abc).
+parent(mike, bob).
+parent(pat, ben).
+parent(ann,xyz).
+
+female(mary). %the fact that Mary is a female
+female(ann).
+female(pat).
+male(john). %the fact that John is a male
+male(xyz).
+male(mike).
+male(abc).
+male(bob).
+male(ben).
+mother(X,Y) :- parent(X, Y), female(X). %definition of the predicate mother
+father(X,Y) :- parent(X, Y), male(X). %definition of the predicate father
+grandfather(X,Y) :- father(X,Z),father(Z,Y).
+grandfather(X,Y) :- father(X,Z),mother(Z,Y).
+grandmother(X,Y) :- mother(X,Z),father(Z,Y).
+grandmother(X,Y) :- mother(X,Z),mother(Z,Y).
+sibling(X,Y) :-   parent(Z, X), parent(Z, Y), X \= Y .
+brother(X, Y) :- sibling(X, Y),male(X), male(Y).
+sister(X,Y) :-  sibling(X, Y),female(X),female(Y).
+uncle(X,Y):-  male(X), sibling(X, Z), parent(Z, Y).
+aunt(X,Y):-  female(X), sibling(X, Z), parent(Z, Y).
+
+
+
